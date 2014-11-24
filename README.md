@@ -6,9 +6,9 @@ i.e. example:
 
 gdalwarp example
 
-```json
+```python
 {
-    # Mandatory: Array containing the source paths i.e. a layer of *.tif for band extraction or merging
+    #Mandatory: "Array containing the source paths i.e. a layer of *.tif for band extraction or merging"
     "source_path": ["data/burundi_maize_area_3857.tif"],
     # Mandatory: String containing the output path. If it doesn't exists it will be created
     "output_path": "data/gdalwarp/",
