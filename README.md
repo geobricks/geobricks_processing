@@ -4,10 +4,13 @@ Geobricks Processing
 The Geobricks processing library provides an easy way to process sets of layers, providing band extraction and some of the GDAL basic funcionalities. 
 i.e. example:
 
-gdalwarp example
+GDALWARP example
 
 ```python
-{
+
+from geobricks_processing.core import processing_core
+
+processing_gdalwarp = {
     #Mandatory: "Array containing the source paths i.e. a layer of *.tif for band extraction or merging"
     "source_path": ["data/burundi_maize_area_3857.tif"],
     # Mandatory: String containing the output path. If it doesn't exists it will be created
@@ -32,7 +35,51 @@ gdalwarp example
         }
     ]
 }
+
+output_files = processing_core.process_data(processing_gdalwarp)
 ```
 
+To do more than one operation can be created an array containing the different steps of the process. In this example with be applied first a GDALWARP and then a GDALADDO operation to the output file
+
+```python
+from geobricks_processing.core import processing_core
+
+processing_gdalwarp = [
+    {
+        "source_path": ["data/burundi_maize_area_3857.tif"],
+        "output_path": "data/gdalwarp/",
+        "output_file_name": "burundi_maize_area_4326.tif",
+        "band": 1,
+        "process": [
+            {
+                "gdalwarp": {
+                    "opt": {
+                        "-multi": "",
+                        "-overwrite": "",
+                        "-of": "GTiff",
+                        "-s_srs": "EPSG:3857",
+                        "-t_srs": "EPSG:4326"
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "band": 1,
+        "process": [
+            {
+                "gdaladdo": {
+                    "parameters": {
+                        # "--config": "BIGTIFF_OVERVIEW IF_NEEDED"
+                    },
+                    "overviews_levels": "2 4 8 16"
+                }
+            }
+        ]
+    }
+]
+
+output_files = processing_core.process_data(processing_gdalwarp)
+```
 
 
