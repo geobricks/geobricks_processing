@@ -1,7 +1,7 @@
 Geobricks Processing
 ====================
 
-The Geobricks processing library provides an easy way to process in bulk a set of layers, providing band extraction and some of the GDAL basic funcionalities. 
+The Geobricks processing library provides an easy way to process sets of layers, providing band extraction and some of the GDAL basic funcionalities. 
 i.e. example:
 
 gdalwarp example
