@@ -7,7 +7,7 @@ Installation
 ============
 The plug-in is distributed through PyPi and can be installed by typing the following command in the console:
 ```
-pip install geobricksmodis
+pip install geobricksprocessing
 ```
 Examples
 ========
