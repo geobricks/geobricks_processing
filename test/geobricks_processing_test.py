@@ -1,10 +1,17 @@
 import unittest
+from shutil import rmtree
+import os
 from geobricks_processing.core import processing_core
+
+path = "../test_data/burundi_maize_area/"
+source_path = [path + "/burundi_maize_area_3857.tif"]
+output_path = path + "/gdalwarp"
+if os.path.isdir(output_path): rmtree(output_path)
 
 processing_gdalwarp = [
     {
-        "source_path": ["data/burundi_maize_area_3857.tif"],
-        "output_path": "data/gdalwarp/",
+        "source_path": source_path,
+        "output_path": output_path,
         "output_file_name": "burundi_maize_area_4326.tif",
         "band": 1,
         "process": [

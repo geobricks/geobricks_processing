@@ -17,23 +17,25 @@ key_function = [
 
 
 def process_data(objs, loglevel=logging.INFO):
+    """
+    Process a json array with GDAL raster operations.
+    @return: An array with the processed files.
+    """
     result = []
     for obj in objs:
         obj["source_path"] = obj["source_path"] if "source_path" in obj else result
-        result = process_step(obj, loglevel)
+        result = process_obj(obj, loglevel)
     return result
 
-def process_step(obj, loglevel=logging.INFO):
+def process_obj(obj, loglevel=logging.INFO):
     """
     Process a json object with GDAL raster operations.
     @return: An array with the processed files.
     """
     log.setLevel(loglevel)
-    print obj
     try:
         source_path = obj["source_path"]
         process = obj["process"]
-        log.info(process)
     except Exception:
         pass
         log.error("Raise exception: output_path, source_path and process type are mandatory")
@@ -54,35 +56,25 @@ def process_step(obj, loglevel=logging.INFO):
     # looping throught processes
     for process_values in process:
         for key in process_values:
-            log.info(output_processed_files)
             if key in key_function:
                 # explicit functions
                 if "extract_bands" in key:
                     output_processed_files = p.extract_bands(output_processed_files, band, output_path)
                 # get the pixel size
                 elif "get_pixel_size" in key:
-                    log.info("get_pixel_size")
                     pixel_size = p.get_pixel_size(output_processed_files[0], process_values[key])
                     log.info(pixel_size)
             else:
-                # STANDARD GDAL FUNCTIONS
-                log.info("not function")
-                log.info("parameters")
-                log.info(key)
-                log.info(process_values[key])
+                # Standard GDAL functions
                 process_values[key] = change_values(process_values[key], pixel_size)
-
-                # reflection calls
+                # reflection methods calls
                 output_processed_files = getattr(p, key)(process_values[key], output_processed_files, output_path)
     return output_processed_files
 
 
 def change_values(obj, pixel_size):
     s = json.dumps(obj)
-    log.info(pixel_size)
-    log.info(s)
     s = s.replace("{{PIXEL_SIZE}}", str(pixel_size))
-    log.info(s)
     return json.loads(s)
 
 
@@ -94,32 +86,30 @@ class Process:
             self.output_file_name = output_file_name
 
     def extract_bands(self, input_files, band, output_path):
-        log.info("extract_files_and_band_names")
-        log.info(input_files)
-        log.info("band: " + str(band))
-        bands = []
+        file_bands = []
+        filenames = []
         ext = None
         try:
             files = glob.glob(input_files[0])
             for f in files:
                 gtif = gdal.Open(f)
                 sds = gtif.GetSubDatasets()
-                bands.append(sds[int(band) - 1][0])
+                file_bands.append(sds[int(band) - 1][0])
+                filenames.append(get_filename(f))
                 if ext is None:
                     filename, ext = os.path.splitext(f)
-            return self.extract_band_files(bands, output_path, ext)
+            return self.extract_band_files(file_bands, filenames, output_path, ext)
         except Exception, e:
             log.error(e)
             raise Exception(e, 400)
 
-    def extract_band_files(self, input_files, output_path, ext=None):
+    def extract_band_files(self, input_file_bands, input_filenames, output_path, ext=None):
         output_files = []
         i = 0
         try:
-            for f in input_files:
-                print get_filename(f, True)
-                output_file_path = os.path.join(output_path, str(i) + ext)
-                cmd = "gdal_translate '" + f + "' " + output_file_path
+            for file_band, filename in zip(input_file_bands, input_filenames):
+                output_file_path = os.path.join(output_path, filename)
+                cmd = "gdal_translate '" + file_band + "' " + output_file_path
                 log.info(cmd)
                 process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
                 output, error = process.communicate()
@@ -153,13 +143,10 @@ class Process:
     def gdal_merge(self, parameters, input_files, output_path):
         output_files = []
         output_file = os.path.join(output_path, self.output_file_name)
-        log.info(output_file)
         output_files.append(output_file)
         cmd = "gdal_merge.py "
-        log.info(cmd)
         if "opt" in parameters:
             for key in parameters["opt"].keys():
-                log.info(key)
                 cmd += " " + key + " " + str(parameters["opt"][key])
         for input_file in input_files:
             cmd += " " + input_file
@@ -175,7 +162,6 @@ class Process:
             raise Exception(e, 400)
 
     def gdalwarp(self, parameters, input_files, output_path):
-        log.info(input_files)
         output_files = []
         output_file = os.path.join(output_path, self.output_file_name)
         output_files.append(output_file)
@@ -241,11 +227,7 @@ def callMethod(o, name, options, input_files):
     getattr(o, name)(options, input_files)
 
 
-def get_filename(filepath, extension=False):
+def get_filename(filepath):
     drive, path = os.path.splitdrive(filepath)
     path, filename = os.path.split(path)
-    name = os.path.splitext(filename)[0]
-    if extension is True:
-        return path, filename, name
-    else:
-        return name
+    return os.path.splitext(filename)[0]

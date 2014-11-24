@@ -9,7 +9,7 @@ setup(
     packages=find_packages(),
     license='LICENSE.txt',
     long_description=open('README.md').read(),
-    description='Geobricks plug-in for processing raster data.',
+    description='Geobricks processing library for raster data.',
     install_requires=[
         'flask', 'BeautifulSoup'
     ],
