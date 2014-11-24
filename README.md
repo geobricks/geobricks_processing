@@ -39,7 +39,7 @@ processing_gdalwarp = {
 output_files = processing_core.process_data(processing_gdalwarp)
 ```
 
-To do more than one operation can be created an array containing the different steps of the process. In this example with be applied first a GDALWARP and then a GDALADDO operation to the output file
+To do more than one operation can be created an array containing the different steps of the process. In this example will be applied first a GDALWARP and then a GDALADDO operation to the output file.
 
 ```python
 from geobricks_processing.core import processing_core
