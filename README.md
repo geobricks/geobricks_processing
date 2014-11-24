@@ -48,6 +48,7 @@ output_files = processing_core.process_data(processing_gdalwarp)
 ```
 
 GDALWARP with a GDALADDO operation
+
 To do more than one operation can be created an array containing the different steps of the process. In this example will be applied first a GDALWARP and then a GDALADDO operation to the output file.
 
 ```python
