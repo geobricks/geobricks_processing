@@ -2,7 +2,15 @@ Geobricks Processing
 ====================
 
 The Geobricks processing library provides an easy way to process sets of layers, providing band extraction and some of the GDAL basic funcionalities. 
-i.e. example:
+
+Installation
+============
+The plug-in is distributed through PyPi and can be installed by typing the following command in the console:
+```
+pip install geobricksmodis
+```
+Examples
+========
 
 GDALWARP example
 
