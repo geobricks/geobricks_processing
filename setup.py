@@ -13,5 +13,6 @@ setup(
     install_requires=[
         'flask', 'BeautifulSoup'
     ],
-    url='http://pypi.python.org/pypi/GeobricksProcessing/'
+    url='http://pypi.python.org/pypi/GeobricksProcessing/',
+    keywords=['geobricks', 'processing', 'raster', 'gis', 'gdal']
 )
