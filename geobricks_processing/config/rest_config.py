@@ -5,10 +5,10 @@ config = {
     "debug": True,
 
     # Flask host: DEVELOPMENT ONLY
-    "host": "168.202.28.214",
+    "host": "localhost",
 
     # Flask port: DEVELOPMENT ONLY
-    "port": 5999,
+    "port": 5902,
 
     # Logging configurations
     "logging": {

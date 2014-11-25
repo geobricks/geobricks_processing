@@ -1,6 +1,1 @@
-v0.1.0, 27-10-2014 -- Initial release.
-v0.1.1, 27-10-2014 -- Unit tests added.
-v0.1.2, 29-10-2014 -- File size set to None for the layers.
-v0.1.3, 30-10-2014 -- Filter by GAUL, ISO2 and ISO3 codes.
-v0.1.4, 03-11-2014 -- World added to the countries list.
-v0.1.5, 14-11-2014 -- Discovery service added.
+v0.0.1, 24-11-2014 -- Initial release.

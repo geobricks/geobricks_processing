@@ -1,10 +1,5 @@
 from flask import Flask
 from flask.ext.cors import CORS
-from flask import jsonify
-from flask import render_template
-from flask import Response
-from flask import request
-from flask.ext.cors import cross_origin
 from geobricks_processing.config.rest_config import config
 from geobricks_processing.rest import processing_rest
 import logging
