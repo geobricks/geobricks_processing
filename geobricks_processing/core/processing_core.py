@@ -6,6 +6,7 @@ import json
 import logging
 import uuid
 from geobricks_processing.utils.log import logger
+from geobricks_processing.config.config import config
 
 log = logger("geobricks_processing.processing_core")
 
@@ -26,6 +27,7 @@ def process_data(objs, loglevel=logging.INFO):
         obj["source_path"] = obj["source_path"] if "source_path" in obj else result
         result = process_obj(obj, loglevel)
     return result
+
 
 def process_obj(obj, loglevel=logging.INFO):
     """
