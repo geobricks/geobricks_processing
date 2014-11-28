@@ -1,3 +1,4 @@
 *.txt~
+*.pyc
 /dist/
 /GeobricksProcessing.egg-info/
