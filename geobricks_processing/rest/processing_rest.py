@@ -1,14 +1,9 @@
 import json
 from flask import Blueprint
 from flask import Response
-from flask import Flask
-from flask.ext.cors import CORS
-from flask import jsonify
-from flask import render_template
-from flask import Response
 from flask import request
 from flask.ext.cors import cross_origin
-from geobricks_processing.config.rest_config import config
+from geobricks_processing.config.config import config
 
 from geobricks_processing.core import processing_core as p
 
@@ -32,6 +27,6 @@ def discovery():
 @app.route('/process/', methods=['POST'])
 @cross_origin(origins='*', headers=['Content-Type'])
 def process_data_obj():
-    user_json = request.get_json(config)
-    p.process_data(user_json, config["logging"]["level"])
+    user_json = request.get_json()
+    p.process_data(user_json, config["setting"]["logging"]["level"])
     return Response(json.dumps({}), content_type='application/json; charset=utf-8')

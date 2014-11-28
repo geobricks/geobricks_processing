@@ -1,6 +1,4 @@
 import logging
-import inspect
-# from pgeo.config.settings import settings
 
 settings = {
     # Logging configurations

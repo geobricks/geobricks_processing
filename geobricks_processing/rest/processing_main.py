@@ -1,6 +1,6 @@
 from flask import Flask
 from flask.ext.cors import CORS
-from geobricks_processing.config.rest_config import config
+from geobricks_processing.config.config import config
 from geobricks_processing.rest import processing_rest
 import logging
 
