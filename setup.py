@@ -11,7 +11,8 @@ setup(
     long_description=open('README.md').read(),
     description='Geobricks processing library for raster data.',
     install_requires=[
-        'flask', 'BeautifulSoup'
+        'flask',
+        'flask-cors',
     ],
     url='http://pypi.python.org/pypi/GeobricksProcessing/',
     keywords=['geobricks', 'processing', 'raster', 'gis', 'gdal']
