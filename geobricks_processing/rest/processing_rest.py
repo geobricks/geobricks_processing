@@ -28,5 +28,5 @@ def discovery():
 @cross_origin(origins='*', headers=['Content-Type'])
 def process_data_obj():
     user_json = request.get_json()
-    out = p.process_data(user_json, config['setting']['logging']['level'])
+    out = p.process_data(user_json, config['settings']['logging']['level'])
     return Response(json.dumps(out), content_type='application/json; charset=utf-8')

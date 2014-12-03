@@ -92,7 +92,7 @@ class Process:
         filenames = []
         ext = None
         try:
-            files = glob.glob(input_files[0])
+            files = input_files
             for f in files:
                 gtif = gdal.Open(f)
                 sds = gtif.GetSubDatasets()
