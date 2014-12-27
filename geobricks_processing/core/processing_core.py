@@ -1,14 +1,12 @@
 from osgeo import gdal
 import os
 import subprocess
-import glob
 import json
 import logging
 import uuid
-from geobricks_processing.utils.log import logger
-from geobricks_processing.config.config import config
+from geobricks_common.core.log import logger
 
-log = logger("geobricks_processing.processing_core")
+log = logger(__file__)
 
 # methods not related to a GDAL function
 key_function = [

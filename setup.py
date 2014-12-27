@@ -3,7 +3,7 @@ from setuptools import find_packages
 
 setup(
     name='GeobricksProcessing',
-    version='0.0.2',
+    version='0.0.3',
     author='Simone Murzilli; Guido Barbaglia',
     author_email='geobrickspy@gmail.com',
     packages=find_packages(),
@@ -13,6 +13,7 @@ setup(
     install_requires=[
         'flask',
         'flask-cors',
+        'GeobricksCommon'
     ],
     url='http://pypi.python.org/pypi/GeobricksProcessing/',
     keywords=['geobricks', 'processing', 'raster', 'gis', 'gdal']
