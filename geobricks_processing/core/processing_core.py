@@ -42,6 +42,12 @@ def process_obj(obj, loglevel=logging.INFO):
         log.error("Raise exception: output_path, source_path and process type are mandatory")
     output_path = obj["output_path"] if "output_path" in obj else tmp_folder
     output_file_name = obj["output_file_name"] if "output_file_name" in obj else str(uuid.uuid4())
+
+    if "tmp" in obj:
+        output_path = tmp_folder
+        output_file_name += str(uuid.uuid4())
+
+
     if output_path is not None and not os.path.isdir(output_path):
         os.makedirs(output_path)
     band = obj["band"] if "band" in obj else 1
