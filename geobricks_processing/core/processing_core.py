@@ -41,7 +41,7 @@ def process_obj(obj, loglevel=logging.INFO):
         pass
         log.error("Raise exception: output_path, source_path and process type are mandatory")
     output_path = obj["output_path"] if "output_path" in obj else tmp_folder
-    output_file_name = obj["output_file_name"] if "output_file_name" in obj else str(uuid.uuid4())
+    output_file_name = obj["output_file_name"] if "output_file_name" in obj else "layer_tmp_" + str(uuid.uuid4())
 
     if "tmp" in obj:
         output_path = tmp_folder
