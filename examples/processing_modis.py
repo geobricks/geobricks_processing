@@ -2,7 +2,7 @@ from shutil import rmtree
 import os
 from geobricks_processing.core import processing_core
 
-path = "../test_data/MODIS/MOD13A2"
+path = "../tests/data/MODIS/MOD13A2"
 source_path = [path + "/*.hdf"]
 output_path = path + "/output"
 if os.path.isdir(output_path):
