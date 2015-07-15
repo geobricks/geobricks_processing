@@ -13,7 +13,7 @@ before_install:
   - export C_INCLUDE_PATH=/usr/include/gdal
 
 install:
-  - "pip install -r requirements.txt"
+  - "pip install -r requirements-dev.txt"
   - "pip install pytest pytest-cov"
   - "pip install coveralls"
   - "pip install -e ."   # install package using setup.py in editable mode
