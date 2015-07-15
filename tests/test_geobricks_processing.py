@@ -45,8 +45,16 @@ processing_gdalwarp = [
 ]
 
 
-class GeobricksProcessingTest(unittest.TestCase):
+class GeobricksTest(unittest.TestCase):
 
     def test_processing_gdalwarp_gdaladdo(self):
         outputfiles = processing_core.process_data(processing_gdalwarp)
         self.assertEqual(len(outputfiles), 1)
+
+
+def run_test():
+    suite = unittest.TestLoader().loadTestsFromTestCase(GeobricksTest)
+    unittest.TextTestRunner(verbosity=2).run(suite)
+
+if __name__ == '__main__':
+    run_test()
