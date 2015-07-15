@@ -3,9 +3,9 @@ from shutil import rmtree
 import os
 from geobricks_processing.core import processing_core
 
-path = "../test_data/burundi_maize_area"
+path = "data/burundi_maize_area"
 source_path = [path + "/burundi_maize_area_3857.tif"]
-output_path = path + "/gdalwarp"
+output_path = path + "/output"
 if os.path.isdir(output_path):
     rmtree(output_path)
 
@@ -45,8 +45,16 @@ processing_gdalwarp = [
 ]
 
 
-class GeobricksProcessingTest(unittest.TestCase):
+class GeobricksTest(unittest.TestCase):
 
     def test_processing_gdalwarp_gdaladdo(self):
         outputfiles = processing_core.process_data(processing_gdalwarp)
         self.assertEqual(len(outputfiles), 1)
+
+
+def run_test():
+    suite = unittest.TestLoader().loadTestsFromTestCase(GeobricksTest)
+    unittest.TextTestRunner(verbosity=2).run(suite)
+
+if __name__ == '__main__':
+    run_test()
